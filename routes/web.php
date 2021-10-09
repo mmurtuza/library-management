@@ -21,3 +21,6 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/books', BooksController::class);
+Route::get('/test', function(){
+    return view('welcome');
+});

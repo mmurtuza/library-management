@@ -6,7 +6,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            .nav-bar:last-child {
+                float: inline-end;
+            }
 
+        </style>
         <title>Document</title>
     </head>
 
@@ -32,22 +38,68 @@
         </nav>
 
         <div class="row">
-            <nav class="col-sm-2 col-2 bg-dark navbar-dark" id="myScrollspy" style="height: 100%; background-color: #333;">
-                <ul class="nav nav-tap flex-column">
+            <nav class="col-sm-2 col-2 bg-dark navbar-dark" id="myScrollspy">
+                <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <i class="fa fa-home" aria-hidden="true"></i>
-                        <a class="nav-link active" href="#home">Home</a>
+
+                        <a class="nav-link active" href="./home">
+                            <i class="fa fa-home" style="color: #ffffff;"></i>
+                            Home
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Issue Book</a>
+
+                        <a class="nav-link" href="#home">
+                            <i class="fa fa-plus" style="color: #ffffff;"></i>
+                            Add Student
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Section 3</a>
+
+                        <a class="nav-link" href="#home">
+                            <i class="fa fa-group" style="color: #ffffff;"></i>
+                            Student List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="#home">
+                            <i class="fa fa-book" style="color: #ffffff;"></i>
+                            Add Books
+                        </a>
+                    </li>
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="#home">
+                            <i class="fa fa-list" style="color: #ffffff;"></i>
+                            All Books
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="#home">
+                            <i class="fa fa-folder" style="color: #ffffff;"></i>
+                            Add Category
+                        </a>
                     </li>
                 </ul>
             </nav>
-            <div class="col-5">
-                <Section>Section
+            <div class="container">
+                <section class=" d-flexl">
+                    <div class="col flex-fill">
+                        <i class="fa fa-list "></i>
+                        <h1>title</h1>
+                    </div>
+                    <div class="col flex-fill">
+                        <i class="fa fa-list "></i>
+                        <h1>title</h1>
+                    </div>
+                    <div class="col flex-fill">
+                        <i class="fa fa-list "></i>
+                        <h1>title</h1>
+                    </div>
+                </section>
             </div>
         </div>
 

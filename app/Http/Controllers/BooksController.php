@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Books;
 use Illuminate\Http\Request;
+use App\Models\Categories;
 
 class BooksController extends Controller
 {
@@ -13,7 +15,9 @@ class BooksController extends Controller
      */
     public function index()
     {
-        return 'hi';
+        //seledt every user from the database
+        $books = Books::all();
+        return view('admin.books.index', compact('books'));
     }
 
     /**

@@ -24,11 +24,11 @@
 
 <body>
     <div id="app">
-        <main class="d-flex ">
+        <div class="container-fluid">
 
             @yield('content')
-        </main>
-    </div>
+
+        </div>
 </body>
 
 </html>

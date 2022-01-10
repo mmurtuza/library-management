@@ -1,41 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+@section('content')
+    @include('public.sticky-menu')
 
-    <title>Document</title>
-</head>
+    @include('public.mainCarousel')
 
-<body>
+        <div class="container">
+            <div class="row m-5">
 
-    <nav class="navbar navbar-expand-sm bg-light navbar-light">
-        <a class="navbar-brand" href="#">Logo</a>
+                <form class="d-flex" action="">
 
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link 1</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link 2</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link 3</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-        </ul>
+                    <input type="text" class="form-control" placeholder="Search by title or auther">
+                    <button class="btn btn-primary">Search</button>
 
-    </nav>
+                </form>
+            </div>
+        
+            <div class="row mt-5">
+                
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Latest Books</h4>
+                        </div>
+                    
+                
+                        <div class="card-body">
+                            @if (!empty($list_of_books))
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                            <div class="row">
+                                @foreach ($list_of_books as $book)
+                                    <div class="col-md-2">
+                                        <div class="card">
+                                            <img class="card-img-top" src="{{ asset('images/NoImage_Available.webp') }}"
+                                                alt="{{ $book->title }}">
+                                            <div class="card-body">
+                                                <p class="card-title fw-bold">{{ $book->title }}</p>
+                                                <p class="card-text">{{ $book->author }}</p>
+                                                <a href="{{ route('show', $book->id) }}"
+                                                    class="btn btn-primary">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <p>No books found</p>
+                            @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    @include('public.contuct-us')
+                </div>
+            </div>
+        </div>
+    </div>
 
-</body>
+    @include('public.footer')
 
-</html>
+    @endsection

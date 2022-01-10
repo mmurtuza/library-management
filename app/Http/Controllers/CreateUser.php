@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Books;
-use Illuminate\Http\Request;
-use App\Models\Categories;
+use App\Http\Requests\StoreBooksRequest;
+use App\Http\Requests\UpdateBooksRequest;
 
-class BooksController extends Controller
+//make controller for advanced search
+class SearchController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +16,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        //seledt every user from the database
-        $books = Books::all();
-        // $books = Books::select('book_id', 'title', 'author', 'description', 'book_categories.category')
-        //     ->join('categories', 'books.category_id', '=', 'categories.id')
-        //     ->get();
-        return view('admin.books.index', compact('books'));
+        return view('public.search');
     }
 
     /**
@@ -30,7 +26,9 @@ class BooksController extends Controller
      */
     public function create()
     {
-        //
+        //create a new book
+
+
     }
 
     /**
@@ -47,10 +45,10 @@ class BooksController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Books  $books
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Books $books)
     {
         //
     }
@@ -58,10 +56,10 @@ class BooksController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Books  $books
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Books $books)
     {
         //
     }
@@ -70,10 +68,10 @@ class BooksController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Books  $books
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Books $books)
     {
         //
     }
@@ -81,10 +79,10 @@ class BooksController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Books  $books
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Books $books)
     {
         //
     }

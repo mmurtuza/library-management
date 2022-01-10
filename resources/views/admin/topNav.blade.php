@@ -1,8 +1,10 @@
 <div class="navbar navbar-expand-md navbar-dark bg-dark shadow-lg justify-content-between px-4">
-    <form class="d-flex">
+    {{-- <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
+    </form> --}}
+    <div class="d-flex"></div>
+
     <div class="m-0" style="height: 50px;">
         <button type="button" class="btn position-relative">
             <i class="far fa-bell fa-2x" style="color:#fff"></i>

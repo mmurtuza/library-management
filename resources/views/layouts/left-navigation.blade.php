@@ -57,7 +57,7 @@
              </li>
 
              <li>
-                 <a href="#" class="nav-link text-white">
+                 <a href="/admin/settings" class="nav-link text-white">
                      <i class="fas fa-cog fa-lg" aria-hidden="true"></i>
                      Settings
                  </a>

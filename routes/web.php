@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BooksController;
+use App\Http\Controllers\PublicController;
 use Illuminate\Routing\RouteGroup;
 
 
@@ -20,9 +21,9 @@ use Illuminate\Routing\RouteGroup;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('public.home');
-});
+Route::get('/', [PublicController::class, 'index'])->name('home');
+
+Route::get('/show', [PublicController::class, 'show'])->name('show');
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::resource('/books', BooksController::class);
@@ -37,10 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'admin.'
     ], function () {
         Route::get('/', function () {
-            return view('admin.index');
+            return view('admin.home');
         });
         Route::resource('/books', BooksController::class);
-        // Route::resource('/books', BooksController::class);
         Route::get('/books/{id}/edit', [BooksController::class, 'edit'])->name('books.edit');
         Route::get('/books/{id}/delete', [BooksController::class, 'destroy'])->name('books.delete');
         Route::get('/books/{id}/show', [BooksController::class, 'show'])->name('books.show');
@@ -57,6 +57,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         //Route to return book
         Route::get('/books/{id}/return', [BooksController::class, 'return'])->name('books.return');
+        Route::get('/settings', function () {
+            return view('admin.settings.settings');
+        })->name('settings');
     });
 
     Route::group(

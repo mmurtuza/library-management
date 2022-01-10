@@ -1,0 +1,12 @@
+.carousel-text{
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    opacity: 0.8;
+    border-radius: 100%;
+    background-color: red;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    z-index: 16;
+    }

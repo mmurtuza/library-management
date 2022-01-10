@@ -24,7 +24,7 @@
 
 <body>
     <div id="app">
-        <div class="container-fluid">
+        <div>
 
             @yield('content')
 

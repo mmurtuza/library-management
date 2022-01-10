@@ -17462,3 +17462,15 @@ readers do not read off random characters that represent icons */
   font-family: "Font Awesome 5 Brands";
   font-weight: 400;
 }
+
+.carousel-text{
+  width: 60%;
+  height: 30%;
+  position: absolute;
+  margin: 0 auto;
+  padding: 2rem 5rem;
+  left: 0;
+  top: 35%;
+  text-shadow: #000 5px 5px 5px;
+  z-index: 16;
+  }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Routing\RouteGroup;
 
 
@@ -24,6 +25,7 @@ Auth::routes();
 Route::get('/', [PublicController::class, 'index'])->name('home');
 
 Route::get('/show', [PublicController::class, 'show'])->name('show');
+Route::post('/search-books', [SearchController::class, 'search'])->name('search-books');
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::resource('/books', BooksController::class);

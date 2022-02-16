@@ -5,60 +5,59 @@
 
     @include('public.mainCarousel')
 
-        <div class="container">
-            <div class="row m-5">
+    <div class="container">
+        <div class="row m-5">
 
-                <form class="d-flex" action="">
+            <form class="d-flex" action="{{ route('search-books') }}" method="POST">
+                @csrf
+                <input type="text" class="form-control" placeholder="Search by title or auther" name="search">
+                <button type="submit" class="btn btn-primary">Search</button>
 
-                    <input type="text" class="form-control" placeholder="Search by title or auther">
-                    <button class="btn btn-primary">Search</button>
+            </form>
+        </div>
 
-                </form>
-            </div>
-        
-            <div class="row mt-5">
-                
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Latest Books</h4>
-                        </div>
-                    
-                
-                        <div class="card-body">
-                            @if (!empty($list_of_books))
+        <div class="row mt-5">
 
-                            <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Latest Books</h4>
+                    </div>
+
+
+                    <div class="card-body">
+                        @if (!empty($list_of_books))
+
+                            <div class="row recent-books">
                                 @foreach ($list_of_books as $book)
-                                    <div class="col-md-2">
-                                        <div class="card">
+                                    <div class="col-md-3 auto-h">
+                                        <div class="card mt-3">
                                             <img class="card-img-top" src="{{ asset('images/NoImage_Available.webp') }}"
                                                 alt="{{ $book->title }}">
                                             <div class="card-body">
                                                 <p class="card-title fw-bold">{{ $book->title }}</p>
                                                 <p class="card-text">{{ $book->author }}</p>
-                                                <a href="{{ route('show', $book->id) }}"
-                                                    class="btn btn-primary">View</a>
+                                                <a href="{{ route('show', $book->id) }}" class="btn btn-primary">View</a>
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
                             @else
                                 <p>No books found</p>
-                            @endif
-                            </div>
-                        </div>
+                        @endif
                     </div>
-                </div>
-            </div>
-            <div class="row mt-5">
-                <div class="col-md-12">
-                    @include('public.contuct-us')
                 </div>
             </div>
         </div>
     </div>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            @include('public.contuct-us')
+        </div>
+    </div>
+    </div>
+    </div>
 
     @include('public.footer')
 
-    @endsection
+@endsection

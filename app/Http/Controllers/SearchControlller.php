@@ -51,7 +51,8 @@ class SearchController extends Controller
      */
     public function show(Books $books)
     {
-        //
+        $booksQuery = Books::where('title', 'like', '%' . $books->books . '%')->get();
+        return view('public.search', compact('booksQuery'));
     }
 
     /**
@@ -62,7 +63,6 @@ class SearchController extends Controller
      */
     public function edit(Books $books)
     {
-        //
     }
 
     /**

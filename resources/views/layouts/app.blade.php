@@ -31,9 +31,14 @@
     <div id="app">
 
         @yield('content')
+    </div>
 
 
-        @yield('script')
+    @yield('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.bundle.min.js"
+        integrity="sha512-sH8JPhKJUeA9PWk3eOcOl8U+lfZTgtBXD41q6cO/slwxGHCxKcW45K4oPCUhHG7NMB4mbKEddVmPuTXtpbCbFA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ asset('./js/app.js') }}" defer></script>
 </body>
 
 </html>

@@ -9,7 +9,7 @@ class Books extends Model
 {
     use HasFactory;
     protected $fillable = array(
-        'book_id',
+        'id',
         'title',
         'author',
         'category_id',
@@ -20,7 +20,7 @@ class Books extends Model
     public $timestamps = false;
 
     protected $table = 'books';
-    protected $primaryKey = 'book_id';
+    // protected $primaryKey = 'book_id';
 
     protected $hidden = array();
 

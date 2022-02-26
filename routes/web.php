@@ -42,9 +42,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', function () {
             return view('admin.home');
         });
-        Route::resource('/books', BooksController::class);
+        // Route::resource('/books', BooksController::class);
         Route::get('/books/{id}/edit', [BooksController::class, 'edit'])->name('books.edit');
-        Route::get('/books/{id}/delete', [BooksController::class, 'destroy'])->name('books.delete');
+        Route::delete('/books/{id}/delete', [BooksController::class, 'destroy'])->name('books.delete');
         Route::get('/books/{id}/show', [BooksController::class, 'show'])->name('books.show');
         Route::get('/books/{id}/update', [BooksController::class, 'update'])->name('books.update');
         Route::get('/books/create', [BooksController::class, 'create'])->name('books.create');

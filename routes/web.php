@@ -6,7 +6,7 @@ use App\Http\Controllers\BooksController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Routing\RouteGroup;
-
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +29,8 @@ Route::post('/search-books', [SearchController::class, 'search'])->name('search-
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::resource('/books', BooksController::class);
+Route::get('mail',  [PublicController::class, 'send'])->name('mail');
+
 Route::get('/test', function () {
     return view('welcome');
 });
@@ -66,12 +68,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(
         [
-            'prefix' => 'user',
-            'middleware' => 'role:user',
-            'as' => 'user.'
+            'prefix' => 'student',
+            'middleware' => 'role:student',
+            'as' => 'student.'
         ],
         function () {
-            Route::get('/user', function () {
+            Route::resource('profile', UserController::class);
+            Route::post('reissue', [BooksController::class, 'reissue'])->name('books.reissue');
+            Route::get('/home', function () {
                 return view('user.index');
             });
         }

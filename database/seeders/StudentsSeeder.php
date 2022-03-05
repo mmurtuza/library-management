@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Books;
 use App\Models\Student;
 use Illuminate\Database\Seeder;
 
-class BooksSeeder extends Seeder
+class StudentsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +14,7 @@ class BooksSeeder extends Seeder
      */
     public function run()
     {
-        Books::factory()->count(50)->create();
+
+        Student::factory()->count(50)->create();
     }
 }

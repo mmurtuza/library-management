@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Books;
+use App\Models\Student;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,7 +14,7 @@ use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\Rules\Rule;
 
-final class Name extends PowerGridComponent
+final class StudentTable extends PowerGridComponent
 {
     use ActionButton;
 
@@ -31,10 +31,8 @@ final class Name extends PowerGridComponent
     public function setUp(): void
     {
         $this->showCheckBox()
-            ->showPerPage(25)
+            ->showPerPage()
             ->showSearchInput()
-            ->showToggleColumns()
-            ->showRecordCount('full')
             ->showExportOption('download', ['excel', 'csv']);
     }
 
@@ -47,27 +45,13 @@ final class Name extends PowerGridComponent
     */
 
     /**
-     * PowerGrid datasource.
-     *
-     * @return  \Illuminate\Database\Eloquent\Builder<\App\Models\User>|null
-     */
+    * PowerGrid datasource.
+    *
+    * @return  \Illuminate\Database\Eloquent\Builder<\App\Models\User>|null
+    */
     public function datasource(): ?Builder
     {
-        return Books::query()
-            ->join('categories', function ($categories) {
-                $categories->on('books.category_id', '=', 'categories.id');
-            })
-            ->select([
-                'books.id',
-                'books.title',
-                'books.author',
-                'books.description',
-                // 'books.price',
-                // 'books.stock',
-                'books.created_at',
-                'books.updated_at',
-                'categories.name as category_name'
-            ]);
+        return Student::query();
     }
 
     /*
@@ -99,12 +83,20 @@ final class Name extends PowerGridComponent
     public function addColumns(): ?PowerGridEloquent
     {
         return PowerGrid::eloquent()
-            ->addColumn('id')
-            ->addColumn('title')
-            ->addColumn('author')
-            ->addColumn('created_at')
-            ->addColumn('created_at_formatted', function (Books $model) {
+            ->addColumn('student_id')
+            ->addColumn('first_name')
+            ->addColumn('last_name')
+            ->addColumn('approved')
+            ->addColumn('category')
+            ->addColumn('roll_num')
+            ->addColumn('branch')
+            ->addColumn('year')
+            ->addColumn('email_id')
+            ->addColumn('created_at_formatted', function(Student $model) { 
                 return Carbon::parse($model->created_at)->format('d/m/Y H:i:s');
+            })
+            ->addColumn('updated_at_formatted', function(Student $model) { 
+                return Carbon::parse($model->updated_at)->format('d/m/Y H:i:s');
             });
     }
 
@@ -117,7 +109,7 @@ final class Name extends PowerGridComponent
     |
     */
 
-    /**
+     /**
      * PowerGrid Columns.
      *
      * @return array<int, Column>
@@ -126,45 +118,74 @@ final class Name extends PowerGridComponent
     {
         return [
             Column::add()
-                ->title('ID')
-                ->field('id')
-                ->searchable()
-                ->sortable(),
+                ->title('STUDENT ID')
+                ->field('student_id')
+                ->makeInputRange(),
 
             Column::add()
-                ->title('Title')
-                ->field('title')
-                ->editOnClick()
+                ->title('FIRST NAME')
+                ->field('first_name')
+                ->sortable()
                 ->searchable()
-                ->makeInputText('title')
-                ->sortable(),
+                ->makeInputText(),
 
             Column::add()
-                ->title('Author')
-                ->field('author')
-                ->editOnClick()
+                ->title('LAST NAME')
+                ->field('last_name')
+                ->sortable()
                 ->searchable()
-                ->makeInputText('author')
-                ->sortable(),
+                ->makeInputText(),
 
             Column::add()
-                ->title('Category')
-                ->field('category_name')
-                ->searchable()
-                ->makeInputText('category_name')
-                ->sortable(),
+                ->title('APPROVED')
+                ->field('approved')
+                ->toggleable(),
 
             Column::add()
-                ->title('Created at')
-                ->field('created_at')
-                ->hidden(),
+                ->title('CATEGORY')
+                ->field('category')
+                ->makeInputRange(),
 
             Column::add()
-                ->title('Created at')
-                ->field('created_at_formatted')
-                ->makeInputDatePicker('created_at')
+                ->title('ROLL NUM')
+                ->field('roll_num')
+                ->sortable()
                 ->searchable()
-        ];
+                ->makeInputText(),
+
+            Column::add()
+                ->title('BRANCH')
+                ->field('branch')
+                ->toggleable(),
+
+            Column::add()
+                ->title('YEAR')
+                ->field('year')
+                ->makeInputRange(),
+
+            Column::add()
+                ->title('EMAIL ID')
+                ->field('email_id')
+                ->sortable()
+                ->searchable()
+                ->makeInputText(),
+
+            Column::add()
+                ->title('CREATED AT')
+                ->field('created_at_formatted', 'created_at')
+                ->searchable()
+                ->sortable()
+                ->makeInputDatePicker('created_at'),
+
+            Column::add()
+                ->title('UPDATED AT')
+                ->field('updated_at_formatted', 'updated_at')
+                ->searchable()
+                ->sortable()
+                ->makeInputDatePicker('updated_at'),
+
+        ]
+;
     }
 
     /*
@@ -175,29 +196,29 @@ final class Name extends PowerGridComponent
     |
     */
 
-    /**
-     * PowerGrid Books Action Buttons.
+     /**
+     * PowerGrid Student Action Buttons.
      *
      * @return array<int, \PowerComponents\LivewirePowerGrid\Button>
      */
 
-
+    /*
     public function actions(): array
     {
-        return [
-            Button::add('edit')
-                ->caption('Edit')
-                ->class('btn btn-primary')
-                ->route('admin.books.edit', ['id' => 'id']),
+       return [
+           Button::add('edit')
+               ->caption('Edit')
+               ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
+               ->route('student.edit', ['student' => 'id']),
 
-            Button::add('destroy')
-                ->caption('Delete')
-                ->class('btn btn-danger')
-                ->route('admin.books.delete', ['id' => 'id'])
-                ->method('delete')
+           Button::add('destroy')
+               ->caption('Delete')
+               ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+               ->route('student.destroy', ['student' => 'id'])
+               ->method('delete')
         ];
     }
-
+    */
 
     /*
     |--------------------------------------------------------------------------
@@ -207,8 +228,8 @@ final class Name extends PowerGridComponent
     |
     */
 
-    /**
-     * PowerGrid Books Action Rules.
+     /**
+     * PowerGrid Student Action Rules.
      *
      * @return array<int, \PowerComponents\LivewirePowerGrid\Rules\RuleActions>
      */
@@ -217,10 +238,10 @@ final class Name extends PowerGridComponent
     public function actionRules(): array
     {
        return [
-
+           
            //Hide button edit for ID 1
             Rule::button('edit')
-                ->when(fn($books) => $books->id === 1)
+                ->when(fn($student) => $student->id === 1)
                 ->hide(),
         ];
     }
@@ -235,25 +256,24 @@ final class Name extends PowerGridComponent
     |
     */
 
-    /**
-     * PowerGrid Books Update.
+     /**
+     * PowerGrid Student Update.
      *
      * @param array<string,string> $data
      */
 
-
-    public function update(array $data): bool
+    /*
+    public function update(array $data ): bool
     {
-        try {
-            $updated = Books::query()
-                ->where('id', $data['id'])
+       try {
+           $updated = Student::query()->findOrFail($data['id'])
                 ->update([
                     $data['field'] => $data['value'],
                 ]);
-        } catch (QueryException $exception) {
-            $updated = false;
-        }
-        return $updated;
+       } catch (QueryException $exception) {
+           $updated = false;
+       }
+       return $updated;
     }
 
     public function updateMessages(string $status = 'error', string $field = '_default_message'): string
@@ -273,4 +293,5 @@ final class Name extends PowerGridComponent
 
         return (is_string($message)) ? $message : 'Error!';
     }
+    */
 }

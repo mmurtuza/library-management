@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
@@ -12,6 +15,8 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
+        "nexmo/client": "^2.4",
+        "nexmo/laravel": "^3.0",
         "power-components/livewire-powergrid": "^2.3",
         "spatie/laravel-permission": "^5.4",
         "twbs/bootstrap": "5.0.2"

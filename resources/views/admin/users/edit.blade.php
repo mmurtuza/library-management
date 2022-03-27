@@ -1,5 +1,6 @@
 @extends('admin.layout')
 
+{{-- create a view to edit details of a users --}}
 @section('admin-content')
     <div class="container container-fluid">
         <div class="row ">
@@ -8,13 +9,13 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             <i class="fa fa-list"></i>
-                            {{ $student->name }}
+                            {{ $user->name }}
                         </h3>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="{{ asset('storage/' . $student->photo) }}" alt="{{ $student->name }}"
+                                <img src="{{ asset('storage/' . $user->photo) }}" alt="{{ $user->name }}"
                                     class="img-responsive">
                             </div>
                             <div class="col-md-8">
@@ -22,30 +23,30 @@
                                     <tbody>
                                         <tr>
                                             <th>Name</th>
-                                            <td>{{ $student->name }}</td>
+                                            <td>{{ $user->name }}</td>
                                         </tr>
                                         <tr>
                                             <th>Email</th>
-                                            <td>{{ $student->email }}</td>
+                                            <td>{{ $user->email }}</td>
                                         </tr>
                                         <tr>
                                             <th>Phone</th>
-                                            <td>{{ $student->phone }}</td>
+                                            <td>{{ $user->phone }}</td>
                                         </tr>
                                         <tr>
                                             <th>Address</th>
-                                            <td>{{ $student->address }}</td>
+                                            <td>{{ $user->address }}</td>
                                         </tr>
                                         <tr>
                                             <th>
-                                                <a href="{{ route('admin.students.edit', $student->id) }}"
+                                                <a href="{{ route('admin.users.edit', $user->id) }}"
                                                     class="btn btn-primary">
                                                     <i class="fa fa-edit"></i>
                                                     Edit
                                                 </a>
                                             </th>
                                             <td>
-                                                <form action="{{ route('admin.students.destroy', $student->id) }}"
+                                                <form action="{{ route('admin.users.destroy', $user->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -63,7 +64,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

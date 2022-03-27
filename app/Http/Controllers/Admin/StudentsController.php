@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Books;
-use App\Http\Requests\StoreBooksRequest;
-use App\Http\Requests\UpdateBooksRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-//make controller for advanced search
-class SearchController extends Controller
+class StudentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +14,7 @@ class SearchController extends Controller
      */
     public function index()
     {
-        return view('public.search');
+        return view('admin.students.index');
     }
 
     /**
@@ -27,9 +24,7 @@ class SearchController extends Controller
      */
     public function create()
     {
-        //create a new book
-
-
+        //
     }
 
     /**
@@ -46,33 +41,33 @@ class SearchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Books  $books
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Books $books)
+    public function show($id)
     {
-        $booksQuery = Books::where('title', 'like', '%' . $books->books . '%')->get();
-        return view('public.search', compact('booksQuery'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Books  $books
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Books $books)
+    public function edit($id)
     {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Books  $books
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Books $books)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -80,10 +75,10 @@ class SearchController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Books  $books
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Books $books)
+    public function destroy($id)
     {
         //
     }

@@ -1,12 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\SearchController;
-use Illuminate\Routing\RouteGroup;
-use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\IssueBookController;
+use App\Http\Controllers\Admin\StudentsController;
+use App\Http\Controllers\Admin\CategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +25,15 @@ use Illuminate\Support\Facades\Mail;
 
 Auth::routes();
 
-Route::get('/', [PublicController::class, 'index'])->name('home');
+Route::view('testa', 'admin.users.index');
 
-Route::get('/show', [PublicController::class, 'show'])->name('show');
+Route::get('/', [PublicController::class, 'index'])->name('home');
+Route::get('author', [PublicController::class, 'author'])->name('author');
+Route::get('categories-1', [PublicController::class, 'categories'])->name('categories-1');
+Route::get('all-author', [PublicController::class, 'author-all'])->name('all-author');
+Route::get('all-categories', [PublicController::class, 'categories-all'])->name('all-categories');
+
+Route::get('/book/{id}', [PublicController::class, 'single_book'])->name('book');
 Route::post('/search-books', [SearchController::class, 'search'])->name('search-books');
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -44,23 +53,25 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', function () {
             return view('admin.home');
         });
-        // Route::resource('/books', BooksController::class);
-        Route::get('/books/{id}/edit', [BooksController::class, 'edit'])->name('books.edit');
+        Route::resource('/books', BooksController::class);
+        Route::resource('/students', StudentsController::class);
+        Route::resource('/categories', CategoriesController::class);
+        Route::resource('/issuebook', IssueBookController::class);
+        /* Route::get('/books/{id}/edit', [BooksController::class, 'edit'])->name('books.edit');
         Route::delete('/books/{id}/delete', [BooksController::class, 'destroy'])->name('books.delete');
         Route::get('/books/{id}/show', [BooksController::class, 'show'])->name('books.show');
         Route::get('/books/{id}/update', [BooksController::class, 'update'])->name('books.update');
         Route::get('/books/create', [BooksController::class, 'create'])->name('books.create');
-        Route::post('/books/store', [BooksController::class, 'store'])->name('books.store');
+        Route::post('/books/store', [BooksController::class, 'store'])->name('books.store'); */
 
-        //Route to issue book
-        Route::get('/books/{id}/issue', [BooksController::class, 'issue'])->name('books.issue');
-        Route::post('/books/{id}/issue', [BooksController::class, 'issue'])->name('books.issue');
+
         //Rote to reissue book
-        Route::get('/books/{id}/reissue', [BooksController::class, 'reissue'])->name('books.reissue');
-        Route::post('/books/{id}/reissue', [BooksController::class, 'reissue'])->name('books.reissue');
+        /* Route::get('/books/{id}/reissue', [BooksController::class, 'reissue'])->name('books.reissue');
+        Route::post('/books/{id}/reissue', [BooksController::class, 'reissue'])->name('books.reissue'); */
+
 
         //Route to return book
-        Route::get('/books/{id}/return', [BooksController::class, 'return'])->name('books.return');
+        // Route::get('/books/{id}/return', [BooksController::class, 'return'])->name('books.return');
         Route::get('/settings', function () {
             return view('admin.settings.settings');
         })->name('settings');

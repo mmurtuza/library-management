@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Student;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,7 +14,7 @@ use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\Rules\Rule;
 
-final class StudentTable extends PowerGridComponent
+final class UsersTable extends PowerGridComponent
 {
     use ActionButton;
 
@@ -45,13 +45,13 @@ final class StudentTable extends PowerGridComponent
     */
 
     /**
-     * PowerGrid datasource.
-     *
-     * @return  \Illuminate\Database\Eloquent\Builder<\App\Models\User>|null
-     */
+    * PowerGrid datasource.
+    *
+    * @return  \Illuminate\Database\Eloquent\Builder<\App\Models\User>|null
+    */
     public function datasource(): ?Builder
     {
-        return Student::query();
+        return User::query();
     }
 
     /*
@@ -84,20 +84,12 @@ final class StudentTable extends PowerGridComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('id')
-            ->addColumn('student_id')
             ->addColumn('name')
-            ->addColumn('department')
-            ->addColumn('semester')
-            ->addColumn('books_issued')
-            ->addColumn('approved')
-            ->addColumn('category')
-            ->addColumn('branch')
-            ->addColumn('year')
-            ->addColumn('email_id')
-            ->addColumn('created_at_formatted', function (Student $model) {
+            ->addColumn('email')
+            ->addColumn('created_at_formatted', function(User $model) { 
                 return Carbon::parse($model->created_at)->format('d/m/Y H:i:s');
             })
-            ->addColumn('updated_at_formatted', function (Student $model) {
+            ->addColumn('updated_at_formatted', function(User $model) { 
                 return Carbon::parse($model->updated_at)->format('d/m/Y H:i:s');
             });
     }
@@ -111,7 +103,7 @@ final class StudentTable extends PowerGridComponent
     |
     */
 
-    /**
+     /**
      * PowerGrid Columns.
      *
      * @return array<int, Column>
@@ -125,11 +117,6 @@ final class StudentTable extends PowerGridComponent
                 ->makeInputRange(),
 
             Column::add()
-                ->title('STUDENT ID')
-                ->field('student_id')
-                ->makeInputRange(),
-
-            Column::add()
                 ->title('NAME')
                 ->field('name')
                 ->sortable()
@@ -137,42 +124,8 @@ final class StudentTable extends PowerGridComponent
                 ->makeInputText(),
 
             Column::add()
-                ->title('Department')
-                ->field('department')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-
-            Column::add()
-                ->title('APPROVED')
-                ->field('approved')
-                ->toggleable(),
-
-            Column::add()
-                ->title('Rejected')
-                ->field('rejected')
-                ->makeInputRange(),
-
-            Column::add()
-                ->title('Books Issued')
-                ->field('books_issued')
-                ->sortable()
-                ->searchable()
-                ->makeInputText(),
-
-            Column::add()
-                ->title('BRANCH')
-                ->field('branch')
-                ->toggleable(),
-
-            Column::add()
-                ->title('YEAR')
-                ->field('year')
-                ->makeInputRange(),
-
-            Column::add()
-                ->title('EMAIL ID')
-                ->field('email_id')
+                ->title('EMAIL')
+                ->field('email')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
@@ -191,7 +144,8 @@ final class StudentTable extends PowerGridComponent
                 ->sortable()
                 ->makeInputDatePicker('updated_at'),
 
-        ];
+        ]
+;
     }
 
     /*
@@ -202,29 +156,29 @@ final class StudentTable extends PowerGridComponent
     |
     */
 
-    /**
-     * PowerGrid Student Action Buttons.
+     /**
+     * PowerGrid User Action Buttons.
      *
      * @return array<int, \PowerComponents\LivewirePowerGrid\Button>
      */
 
-
+    /*
     public function actions(): array
     {
-        return [
-            Button::add('edit')
-                ->caption('Edit')
-                ->class('btn btn-primary')
-                ->route('student.edit', ['student' => 'id']),
+       return [
+           Button::add('edit')
+               ->caption('Edit')
+               ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
+               ->route('user.edit', ['user' => 'id']),
 
-            Button::add('destroy')
-                ->caption('Delete')
-                ->class('btn btn-danger')
-                ->route('student.destroy', ['student' => 'id'])
-                ->method('delete')
+           Button::add('destroy')
+               ->caption('Delete')
+               ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+               ->route('user.destroy', ['user' => 'id'])
+               ->method('delete')
         ];
     }
-
+    */
 
     /*
     |--------------------------------------------------------------------------
@@ -234,8 +188,8 @@ final class StudentTable extends PowerGridComponent
     |
     */
 
-    /**
-     * PowerGrid Student Action Rules.
+     /**
+     * PowerGrid User Action Rules.
      *
      * @return array<int, \PowerComponents\LivewirePowerGrid\Rules\RuleActions>
      */
@@ -244,10 +198,10 @@ final class StudentTable extends PowerGridComponent
     public function actionRules(): array
     {
        return [
-
+           
            //Hide button edit for ID 1
             Rule::button('edit')
-                ->when(fn($student) => $student->id === 1)
+                ->when(fn($user) => $user->id === 1)
                 ->hide(),
         ];
     }
@@ -262,24 +216,24 @@ final class StudentTable extends PowerGridComponent
     |
     */
 
-    /**
-     * PowerGrid Student Update.
+     /**
+     * PowerGrid User Update.
      *
      * @param array<string,string> $data
      */
 
-
-    public function update(array $data): bool
+    /*
+    public function update(array $data ): bool
     {
-        try {
-            $updated = Student::query()->findOrFail($data['id'])
+       try {
+           $updated = User::query()->findOrFail($data['id'])
                 ->update([
                     $data['field'] => $data['value'],
                 ]);
-        } catch (QueryException $exception) {
-            $updated = false;
-        }
-        return $updated;
+       } catch (QueryException $exception) {
+           $updated = false;
+       }
+       return $updated;
     }
 
     public function updateMessages(string $status = 'error', string $field = '_default_message'): string
@@ -299,4 +253,5 @@ final class StudentTable extends PowerGridComponent
 
         return (is_string($message)) ? $message : 'Error!';
     }
+    */
 }

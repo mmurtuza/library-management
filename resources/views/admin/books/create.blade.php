@@ -24,20 +24,17 @@
         <div class="row ">
             <div class="col-md-12 m-3">
                 <div class="panel-body">
-                    <form action="{{ route('admin.books.update', $list_of_books->id) }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form action="{{ route('admin.books.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
+                        {{-- <input type="hidden" name="added-by" value="{{ Auth::user()->name }}"> --}}
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control" name="title" id="title"
-                                value="{{ $list_of_books->title }}">
+                            <input type="text" class="form-control" name="title" id="title" placeholder="Enter Title">
                         </div>
                         <br>
                         <div class="form-group">
                             <label for="author">Author</label>
-                            <input type="text" class="form-control" name="author" id="author"
-                                value="{{ $list_of_books->author }}">
+                            <input type="text" class="form-control" name="author" id="author">
                         </div>
                         <br>
                         <div class="form-group">
@@ -62,8 +59,7 @@
                         <br>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <textarea name="description" id="description" cols="30" rows="10"
-                                class="form-control">{{ $list_of_books->description }}</textarea>
+                            <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
                         </div>
                         <br>
                         <div class="form-group">

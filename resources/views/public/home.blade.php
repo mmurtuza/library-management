@@ -27,17 +27,17 @@
 
                     <div class="card-body">
                         @if (!empty($list_of_books))
-
                             <div class="row recent-books">
                                 @foreach ($list_of_books as $book)
-                                    <div class="col-md-3 auto-h">
+                                    <div class="col-md-2 auto-h">
                                         <div class="card mt-3">
-                                            <img class="card-img-top" src="{{ asset('images/NoImage_Available.webp') }}"
+                                            <img class="card-img-top custom-img"
+                                                src="{{ !empty($book->img_url)? asset('images/productimage' . $book->img_url): asset('images/NoImage_Available.webp') }}"
                                                 alt="{{ $book->title }}">
                                             <div class="card-body">
                                                 <p class="card-title fw-bold">{{ $book->title }}</p>
                                                 <p class="card-text">{{ $book->author }}</p>
-                                                <a href="{{ route('show', $book->id) }}" class="btn btn-primary">View</a>
+                                                <a href="{{ route('book', $book->id) }}" class="btn btn-primary">View</a>
                                             </div>
                                         </div>
                                     </div>

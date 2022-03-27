@@ -1,3 +1,16 @@
 .recent-books .card {
-    height: 35rem;
+    height: 30rem;
+}
+
+.recent-books .card-title {
+    height: 5rem;
+    overflow: hidden;
+}
+.recent-books .card-text {
+    height: 2.5rem;
+    overflow: hidden;
+}
+.custom-img {
+    height: 15rem;
+    width: auto;
 }

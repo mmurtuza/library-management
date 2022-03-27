@@ -8,60 +8,66 @@
          <hr>
          <ul class="nav nav-pills flex-column mb-auto">
              <li class="nav-item">
-                 <a href="/home" class="nav-link active" aria-current="page">
+                 <a href="/admin" class="nav-link text-white {{ request()->is('admin') ? 'active' : '' }}"
+                     aria-current="page">
                      <i class="fas fa-home fa-lg" aria-hidden="true"></i>
                      Home
                  </a>
              </li>
              <li>
-                 <a href="#" class="nav-link text-white">
+                 <a href="{{ url('/admin/books') }}"
+                     class="nav-link text-white {{ request()->is('admin/books') ? 'active' : '' }}">
                      <i class="fas fa-plus fa-lg" aria-hidden="true"></i>
-                     Add Book
+                     Books
                  </a>
              </li>
              <li>
-                 <a href="#" class="nav-link text-white">
+                 <a href="{{ url('/admin/students') }}"
+                     class="nav-link text-white {{ request()->is('admin/students') ? 'active' : '' }}">
+                     <i class="fas fa-user fa-lg" aria-hidden="true"></i>
+                     Students
+                 </a>
+             </li>
+             <li>
+                 <a href="{{ url('/admin/categories') }}"
+                     class="nav-link text-white {{ request()->is('admin/ctegories') ? 'active' : '' }}">
                      <i class="fas fa-book fa-lg" aria-hidden="true"></i>
-                     List Of Books
+                     Books Categories
                  </a>
              </li>
              <li>
-                 <a href="#" class="nav-link text-white">
-                     <i class="fas fa-book fa-lg" aria-hidden="true"></i>
-                     Add Books Caregory
-                 </a>
-             </li>
-             <li>
-                 <a href="#" class="nav-link text-white">
+                 <a href="{{ url('/admin/issued-books') }}"
+                     class="nav-link text-white {{ request()->is('admin/issued-books') ? 'active' : '' }}">
                      <i class="fas fa-list fa-lg" aria-hidden="true"></i>
-                     View All Issued Books
+                     Issued Books
                  </a>
              </li>
              <li>
-                 <a href="#" class="nav-link text-white">
+                 <a href="{{ url('/admin/issued-books') }}"
+                     class="nav-link text-white {{ request()->is('admin/pending-students') ? 'active' : '' }}">
                      <i class="fas fa-layer-group fa-lg" aria-hidden="true"></i>
                      Pending Students
                  </a>
              </li>
              <li>
-                 <a href="#" class="nav-link text-white">
+                 <a href="#" class="nav-link text-white {{ request()->is('admin/issue') ? 'active' : '' }}">
                      <i class="fas fa-long-arrow-alt-left fa-lg" aria-hidden="true"></i>
                      Issu / Return Book
                  </a>
              </li>
              <li>
-                 <a href="#" class="nav-link text-white">
+                 <a href="#" class="nav-link text-white {{ request()->is('admin/due') ? 'active' : '' }}">
                      <i class="fas fa-long-arrow-alt-down  fa-lg" aria-hidden="true"></i>
                      Due
                  </a>
              </li>
 
-             <li>
+             {{-- <li>
                  <a href="/admin/settings" class="nav-link text-white">
                      <i class="fas fa-cog fa-lg" aria-hidden="true"></i>
                      Settings
                  </a>
-             </li>
+             </li> --}}
 
          </ul>
          <hr>

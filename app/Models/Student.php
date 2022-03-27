@@ -9,21 +9,16 @@ class Student extends Model
 {
     use HasFactory;
 
-    protected $fillable = array(
-        'first_name',
-        'last_name',
+    protected $fillable = [
+        'name',
+        'department',
+        'semester',
+        'student_id',
         'approved',
-        'category',
-        'roll_num',
+        'rejected',
         'branch',
         'year',
+        'books_issued',
         'email_id'
-    );
-
-    public $timestamps = false;
-
-    protected $table = 'students';
-    protected $primaryKey = 'student_id';
-
-    protected $hidden = array();
+    ];
 }

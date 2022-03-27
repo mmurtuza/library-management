@@ -3,11 +3,11 @@
 @section('admin-content')
     {{-- Create a Table to show all books from the database --}}
     <div class="container p-3">
-        <a href="{{ url('/admin/books/create') }}" class="btn btn-primary float-end">
+        <a href="{{ url('/admin/issue/create') }}" class="btn btn-primary float-end text-white">
             <i class="fas fa-plus"></i>
-            Add Book
+            Issue Book
         </a>
-        <livewire:name />
+
 
     </div>
 @endsection

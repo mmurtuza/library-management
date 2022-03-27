@@ -186,14 +186,19 @@ final class Name extends PowerGridComponent
     {
         return [
             Button::add('edit')
+                ->caption('Show')
+                ->class('btn btn-success')
+                ->route('admin.books.show', ['book' => 'id']),
+
+            Button::add('edit')
                 ->caption('Edit')
                 ->class('btn btn-primary')
-                ->route('admin.books.edit', ['id' => 'id']),
+                ->route('admin.books.edit', ['book' => 'id']),
 
             Button::add('destroy')
                 ->caption('Delete')
                 ->class('btn btn-danger')
-                ->route('admin.books.delete', ['id' => 'id'])
+                ->route('admin.books.destroy', ['book' => 'id'])
                 ->method('delete')
         ];
     }

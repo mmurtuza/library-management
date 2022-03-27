@@ -3,14 +3,15 @@
 @section('admin-content')
     {{-- Create a Table to show all books from the database --}}
     <div class="container p-3">
-        <a href="{{ url('/admin/books/create') }}" class="btn btn-primary float-end">
+        <a href="{{ route('admin.categories.create') }}" class="btn btn-primary float-end">
             <i class="fas fa-plus"></i>
-            Add Book
+            Add Student
         </a>
-        <livewire:name />
+        <livewire:categories-table />
 
     </div>
 @endsection
+
 @section('head')
     @livewireStyles
     @powerGridStyles

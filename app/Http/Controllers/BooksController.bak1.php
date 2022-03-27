@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Books;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreBooksRequest;
-use App\Http\Requests\UpdateBooksRequest;
 
-//make controller for advanced search
-class SearchController extends Controller
+class BooksController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +13,7 @@ class SearchController extends Controller
      */
     public function index()
     {
-        return view('public.search');
+        return view('admin.books.index');
     }
 
     /**
@@ -27,9 +23,7 @@ class SearchController extends Controller
      */
     public function create()
     {
-        //create a new book
-
-
+        //
     }
 
     /**
@@ -46,10 +40,10 @@ class SearchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Books  $books
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($books)
+    public function show($id)
     {
         //
     }
@@ -57,10 +51,10 @@ class SearchController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Books  $books
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($books)
+    public function edit($id)
     {
         //
     }
@@ -69,10 +63,10 @@ class SearchController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Books  $books
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $books)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -80,10 +74,10 @@ class SearchController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Books  $books
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($books)
+    public function destroy($id)
     {
         //
     }

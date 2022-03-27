@@ -14,7 +14,7 @@ use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\Rules\Rule;
 
-final class BooksTable extends PowerGridComponent
+final class Name extends PowerGridComponent
 {
     use ActionButton;
 
@@ -31,8 +31,10 @@ final class BooksTable extends PowerGridComponent
     public function setUp(): void
     {
         $this->showCheckBox()
-            ->showPerPage()
+            ->showPerPage(25)
             ->showSearchInput()
+            ->showToggleColumns()
+            ->showRecordCount('full')
             ->showExportOption('download', ['excel', 'csv']);
     }
 
@@ -51,7 +53,21 @@ final class BooksTable extends PowerGridComponent
      */
     public function datasource(): ?Builder
     {
-        return Books::query();
+        return Books::query()
+            ->join('categories', function ($categories) {
+                $categories->on('books.category_id', '=', 'categories.id');
+            })
+            ->select([
+                'books.id',
+                'books.title',
+                'books.author',
+                'books.description',
+                // 'books.price',
+                // 'books.stock',
+                'books.created_at',
+                'books.updated_at',
+                'categories.name as category_name'
+            ]);
     }
 
     /*
@@ -83,8 +99,9 @@ final class BooksTable extends PowerGridComponent
     public function addColumns(): ?PowerGridEloquent
     {
         return PowerGrid::eloquent()
-            ->addColumn('book_id')
-            ->addColumn('name')
+            ->addColumn('id')
+            ->addColumn('title')
+            ->addColumn('author')
             ->addColumn('created_at')
             ->addColumn('created_at_formatted', function (Books $model) {
                 return Carbon::parse($model->created_at)->format('d/m/Y H:i:s');
@@ -110,15 +127,31 @@ final class BooksTable extends PowerGridComponent
         return [
             Column::add()
                 ->title('ID')
-                ->field('book_id')
+                ->field('id')
                 ->searchable()
                 ->sortable(),
 
             Column::add()
-                ->title('Name')
-                ->field('name')
+                ->title('Title')
+                ->field('title')
+                ->editOnClick()
                 ->searchable()
-                ->makeInputText('name')
+                ->makeInputText('title')
+                ->sortable(),
+
+            Column::add()
+                ->title('Author')
+                ->field('author')
+                ->editOnClick()
+                ->searchable()
+                ->makeInputText('author')
+                ->sortable(),
+
+            Column::add()
+                ->title('Category')
+                ->field('category_name')
+                ->searchable()
+                ->makeInputText('category_name')
                 ->sortable(),
 
             Column::add()
@@ -148,23 +181,28 @@ final class BooksTable extends PowerGridComponent
      * @return array<int, \PowerComponents\LivewirePowerGrid\Button>
      */
 
-    /*
+
     public function actions(): array
     {
-       return [
-           Button::add('edit')
-               ->caption('Edit')
-               ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-               ->route('books.edit', ['books' => 'id']),
+        return [
+            Button::add('edit')
+                ->caption('Show')
+                ->class('btn btn-primary')
+                ->route('admin.books.show', ['id' => 'id']),
 
-           Button::add('destroy')
-               ->caption('Delete')
-               ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-               ->route('books.destroy', ['books' => 'id'])
-               ->method('delete')
+            Button::add('edit')
+                ->caption('Edit')
+                ->class('btn btn-primary')
+                ->route('admin.books.edit', ['id' => 'id']),
+
+            Button::add('destroy')
+                ->caption('Delete')
+                ->class('btn btn-danger')
+                ->route('admin.books.delete', ['id' => 'id'])
+                ->method('delete')
         ];
     }
-    */
+
 
     /*
     |--------------------------------------------------------------------------
@@ -208,18 +246,19 @@ final class BooksTable extends PowerGridComponent
      * @param array<string,string> $data
      */
 
-    /*
-    public function update(array $data ): bool
+
+    public function update(array $data): bool
     {
-       try {
-           $updated = Books::query()
+        try {
+            $updated = Books::query()
+                ->where('id', $data['id'])
                 ->update([
                     $data['field'] => $data['value'],
                 ]);
-       } catch (QueryException $exception) {
-           $updated = false;
-       }
-       return $updated;
+        } catch (QueryException $exception) {
+            $updated = false;
+        }
+        return $updated;
     }
 
     public function updateMessages(string $status = 'error', string $field = '_default_message'): string
@@ -239,5 +278,4 @@ final class BooksTable extends PowerGridComponent
 
         return (is_string($message)) ? $message : 'Error!';
     }
-    */
 }

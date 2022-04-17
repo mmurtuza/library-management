@@ -51,7 +51,7 @@ class BooksController extends Controller
             'category_id' => 'required|integer',
         ]);
         $imageUrl = str_replace(' ', '-', $request->title) . '-' . time() . '.' . $request->cover->extension();
-        $request->cover->move(public_path('images/pruductImage'), $imageUrl);
+        $request->cover->move(public_path('images/productimage/'), $imageUrl);
         try {
             $product = new Books;
             $product->create([

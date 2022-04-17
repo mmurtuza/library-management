@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Student;
 
-use App\Models\BookIssue;
+use App\Models\Books;
+use App\Models\Categories;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class IssueBookController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,10 @@ class IssueBookController extends Controller
      */
     public function index()
     {
-        return view('admin.issuebook.index');
+        $authors = Books::select('author')->distinct()->take(10)->get();
+        $categories = Categories::select('name')->take(10)->get();
+        $list_of_books = Books::all()->sortBy('created_at')->take(3);
+        return view('students.index', compact('list_of_books', 'authors', 'categories'));
     }
 
     /**
@@ -81,35 +86,5 @@ class IssueBookController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function issue()
-    {
-        return view('admin.issue.issue');
-    }
-
-    public function issuestore(Request $request)
-    {
-        $request->validate([
-
-            's_id' => 'required|string|max:255',
-            'book_id' => 'required|string|max:255',
-        ]);
-        BookIssue::create([
-            'student_id' => $request->s_id,
-            'book_id' => $request->book_id,
-            'added_by' => auth()->user()->id,
-            'issue_date' => now(),
-            'return_date' => now()->addDays(7),
-            'available_status' => '0',
-
-        ]);
-        return back()->with('success', 'Book issued successfully');
-    }
-
-    public function reissue($id)
-    {
-        $issue = BookIssue::find($id);
-        return back()->with('success', 'Book issued successfully');
     }
 }

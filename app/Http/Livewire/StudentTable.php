@@ -213,14 +213,19 @@ final class StudentTable extends PowerGridComponent
     {
         return [
             Button::add('edit')
+                ->caption('Show')
+                ->class('btn btn-success')
+                ->route('admin.students.show', ['student' => 'id']),
+
+            Button::add('edit')
                 ->caption('Edit')
                 ->class('btn btn-primary')
-                ->route('student.edit', ['student' => 'id']),
+                ->route('admin.students.edit', ['student' => 'id']),
 
             Button::add('destroy')
                 ->caption('Delete')
                 ->class('btn btn-danger')
-                ->route('student.destroy', ['student' => 'id'])
+                ->route('admin.students.destroy', ['student' => 'id'])
                 ->method('delete')
         ];
     }

@@ -16,7 +16,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <img class="card-img-top custom-img p-3"
-                                    src="{{ !empty($book->img_url)? asset('images/productimage' . $book->img_url): asset('images/NoImage_Available.webp') }}"
+                                    src="{{ !empty($book->img_url)? asset('images/productimage/' . $book->img_url): asset('images/NoImage_Available.webp') }}"
                                     alt="{{ $book->title }}">
                                 {{-- <img src="{{ asset('images/productimage/' . $book->img_url) }}" alt="{{ $book->title }}"
                                     class="img-responsive"> --}}

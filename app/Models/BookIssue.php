@@ -11,6 +11,11 @@ class BookIssue extends Model
     protected $fillable = [
 
         'book_id',
+        'student_id',
+        'issue_date',
+        'return_date',
+        'fine',
+        'status',
         'available_status',
         'added_by',
     ];

@@ -32,7 +32,7 @@
                                     <div class="col-md-2 auto-h">
                                         <div class="card mt-3">
                                             <img class="card-img-top custom-img"
-                                                src="{{ !empty($book->img_url)? asset('images/productimage' . $book->img_url): asset('images/NoImage_Available.webp') }}"
+                                                src="{{ !empty($book->img_url)? asset('images/productimage/' . $book->img_url): asset('images/NoImage_Available.webp') }}"
                                                 alt="{{ $book->title }}">
                                             <div class="card-body">
                                                 <p class="card-title fw-bold">{{ $book->title }}</p>

@@ -50,7 +50,8 @@
                  </a>
              </li>
              <li>
-                 <a href="issue" class="nav-link text-white {{ request()->is('admin/issue') ? 'active' : '' }}">
+                 <a href="{{ url('/admin/issue') }}"
+                     class="nav-link text-white {{ request()->is('admin/issue') ? 'active' : '' }}">
                      <i class="fas fa-long-arrow-alt-left fa-lg" aria-hidden="true"></i>
                      Issue / Return Book
                  </a>
